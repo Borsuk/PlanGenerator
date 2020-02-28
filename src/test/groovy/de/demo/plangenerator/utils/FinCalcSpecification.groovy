@@ -22,13 +22,12 @@ class FinCalcSpecification extends Specification {
             Integer daysInYear = 360
 
         expect:
-            FinCalc.monthlyInterest(annualNominalRate, daysInMonth, daysInYear, outstandingPrincipal) == expectedMontlyInterest
+            FinCalc.monthlyInterest(annualNominalRate, daysInMonth, daysInYear, initialOutstandingPrincipal) == expectedMontlyInterest
 
         where:
-            annualNominalRate           | outstandingPrincipal          || expectedMontlyInterest
+            annualNominalRate           | initialOutstandingPrincipal   || expectedMontlyInterest
             BigDecimal.valueOf(0.05)    | BigDecimal.valueOf(5000.0)    || BigDecimal.valueOf(20.83)
             BigDecimal.valueOf(0.05)    | BigDecimal.valueOf(4801.47)   || BigDecimal.valueOf(20.01)
             BigDecimal.valueOf(0.05)    | BigDecimal.valueOf(218.37)    || BigDecimal.valueOf(0.91)
-
     }
 }

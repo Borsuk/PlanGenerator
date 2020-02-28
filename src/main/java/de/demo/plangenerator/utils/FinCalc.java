@@ -36,11 +36,11 @@ public class FinCalc {
      * @param annualNominalRate
      * @param daysInMonth
      * @param daysInYear
-     * @param outstandingPrincipal
+     * @param initialOutstandingPrincipal initial outstanding principal in current month
      * @return
      */
-    public static BigDecimal monthlyInterest(BigDecimal annualNominalRate, Integer daysInMonth, Integer daysInYear, BigDecimal outstandingPrincipal) {
-        BigDecimal numerator = annualNominalRate.multiply(BigDecimal.valueOf(daysInMonth)).multiply(outstandingPrincipal);
+    public static BigDecimal monthlyInterest(BigDecimal annualNominalRate, Integer daysInMonth, Integer daysInYear, BigDecimal initialOutstandingPrincipal) {
+        BigDecimal numerator = annualNominalRate.multiply(BigDecimal.valueOf(daysInMonth)).multiply(initialOutstandingPrincipal);
         BigDecimal denominator = BigDecimal.valueOf(daysInYear);
 
         BigDecimal interest = numerator.divide(denominator, 2, RoundingMode.HALF_EVEN);

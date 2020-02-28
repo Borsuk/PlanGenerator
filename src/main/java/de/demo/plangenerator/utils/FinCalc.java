@@ -18,7 +18,7 @@ public class FinCalc {
      * @return annuity computed for given inputs
      */
     public static BigDecimal annuity(BigDecimal annualNominalRate, BigDecimal presentValue, int numberOfPeriods) {
-        BigDecimal ratePerMonth = annualNominalRate.divide(BigDecimal.valueOf(12), MathContext.DECIMAL64); // scale=16 , Rounding=HALF_EVEN <- seems to be enough
+        BigDecimal ratePerMonth = annualNominalRate.divide(BigDecimal.valueOf(12), MathContext.DECIMAL64); // scale=16 , Rounding=HALF_EVEN <- seems to be enough and correct
 
         BigDecimal numerator = ratePerMonth.multiply(presentValue);
 
@@ -28,5 +28,23 @@ public class FinCalc {
         BigDecimal annuity =  numerator.divide(denominator, 2, RoundingMode.HALF_EVEN);
 
         return annuity;
+    }
+
+
+    /**
+     * Current value of monthly interest
+     * @param annualNominalRate
+     * @param daysInMonth
+     * @param daysInYear
+     * @param outstandingPrincipal
+     * @return
+     */
+    public static BigDecimal monthlyInterest(BigDecimal annualNominalRate, Integer daysInMonth, Integer daysInYear, BigDecimal outstandingPrincipal) {
+        BigDecimal numerator = annualNominalRate.multiply(BigDecimal.valueOf(daysInMonth)).multiply(outstandingPrincipal);
+        BigDecimal denominator = BigDecimal.valueOf(daysInYear);
+
+        BigDecimal interest = numerator.divide(denominator, 2, RoundingMode.HALF_EVEN);
+
+        return interest;
     }
 }

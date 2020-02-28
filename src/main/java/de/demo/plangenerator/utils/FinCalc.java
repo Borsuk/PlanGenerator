@@ -47,4 +47,20 @@ public class FinCalc {
 
         return interest;
     }
+
+    /**
+     * Current value of monthly principal.
+     * Expressed as a currentAnnuity - monthlyInterest.
+     * <p>
+     * If the subtraction gives a negative result, then the initial outstanding principal is used instead. This situation can happen for the vary last installment.
+     *
+     * @param currentAnnuity
+     * @param monthlyInterest
+     * @param initialOutstandingPrincipal initial outstanding principal - is used as a fallback result if calculation gives negative result
+     * @return
+     */
+    public static BigDecimal monthlyPrincipal(BigDecimal currentAnnuity, BigDecimal monthlyInterest, BigDecimal initialOutstandingPrincipal) {
+        BigDecimal monthlyPrincipal = currentAnnuity.subtract(monthlyInterest);
+        return (monthlyPrincipal.compareTo(BigDecimal.ZERO) < 0) ? initialOutstandingPrincipal : monthlyPrincipal;
+    }
 }

@@ -30,4 +30,27 @@ class FinCalcSpecification extends Specification {
             BigDecimal.valueOf(0.05)    | BigDecimal.valueOf(4801.47)   || BigDecimal.valueOf(20.01)
             BigDecimal.valueOf(0.05)    | BigDecimal.valueOf(218.37)    || BigDecimal.valueOf(0.91)
     }
+
+    @Unroll
+    def 'monthly principal value is correct for known sample data'() {
+        expect:
+            FinCalc.monthlyPrincipal(currentAnnuity, monthlyInterest, initialOutstandingPrincipal) == expectedMonthlyPrincipal;
+        where:
+            currentAnnuity              | monthlyInterest               | initialOutstandingPrincipal   || expectedMonthlyPrincipal
+            BigDecimal.valueOf(219.36)  | BigDecimal.valueOf(20.83)     | BigDecimal.valueOf(5000.0)    || BigDecimal.valueOf(198.53)
+            BigDecimal.valueOf(219.36)  | BigDecimal.valueOf(20.01)     | BigDecimal.valueOf(4801.47)   || BigDecimal.valueOf(199.35)
+            BigDecimal.valueOf(219.28)  | BigDecimal.valueOf(0.91)      | BigDecimal.valueOf(218.37)    || BigDecimal.valueOf(218.37)
+            BigDecimal.valueOf(100.0)   | BigDecimal.valueOf(123.0)     | BigDecimal.valueOf(200.0)     || BigDecimal.valueOf(200.00)
+    }
+
+    @Unroll
+    def 'monthly principal value is never a negative number, it assumes value of initial outstanding principal in such case'() {
+        expect:
+            FinCalc.monthlyPrincipal(currentAnnuity, monthlyInterest, initialOutstandingPrincipal) == expectedMonthlyPrincipal;
+        where:
+            currentAnnuity              | monthlyInterest               | initialOutstandingPrincipal   || expectedMonthlyPrincipal
+            BigDecimal.valueOf(100.0)   | BigDecimal.valueOf(123.0)     | BigDecimal.valueOf(200.0)     || BigDecimal.valueOf(200.00)
+    }
+
+
 }

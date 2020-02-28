@@ -13,14 +13,14 @@ public class FinCalc {
      * Calculates annuity value.
      *
      * @param annualNominalRate annual nominal rate expressed as fraction
-     * @param presentValue outstanding value of the load to repay
+     * @param initialOutstandingPrincipal aka outstanding value of the loan to repay
      * @param numberOfPeriods number of periods left
      * @return annuity computed for given inputs
      */
-    public static BigDecimal annuity(BigDecimal annualNominalRate, BigDecimal presentValue, int numberOfPeriods) {
+    public static BigDecimal annuity(BigDecimal annualNominalRate, BigDecimal initialOutstandingPrincipal, int numberOfPeriods) {
         BigDecimal ratePerMonth = annualNominalRate.divide(BigDecimal.valueOf(12), MathContext.DECIMAL64); // scale=16 , Rounding=HALF_EVEN <- seems to be enough and correct
 
-        BigDecimal numerator = ratePerMonth.multiply(presentValue);
+        BigDecimal numerator = ratePerMonth.multiply(initialOutstandingPrincipal);
 
         BigDecimal pow = (BigDecimal.ONE.add(ratePerMonth)).pow(-numberOfPeriods, MathContext.DECIMAL64);
         BigDecimal denominator = BigDecimal.ONE.subtract(pow);

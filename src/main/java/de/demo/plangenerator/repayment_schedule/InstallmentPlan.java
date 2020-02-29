@@ -5,10 +5,23 @@ import java.time.ZonedDateTime;
 
 public class InstallmentPlan {
 
-    BigDecimal borrowerPaymentAmount;
-    ZonedDateTime date;
-    BigDecimal initialOutstandingPrincipal;
-    BigDecimal interest;
-    BigDecimal principal;
-    BigDecimal remainingOutstandingPrincipal;
+    public InstallmentPlan() {
+        super();
+    }
+
+    public InstallmentPlan(ZonedDateTime date, BigDecimal borrowerPaymentAmount, BigDecimal principal, BigDecimal interest, BigDecimal initialOutstandingPrincipal, BigDecimal remainingOutstandingPrincipal) {
+        this.date = date;
+        this.borrowerPaymentAmount = borrowerPaymentAmount;
+        this.principal = principal;
+        this.interest = interest;
+        this.initialOutstandingPrincipal = initialOutstandingPrincipal;
+        this.remainingOutstandingPrincipal = remainingOutstandingPrincipal;
+    }
+
+    public BigDecimal borrowerPaymentAmount;
+    public ZonedDateTime date;
+    public BigDecimal initialOutstandingPrincipal;
+    public BigDecimal interest;
+    public BigDecimal principal;
+    public BigDecimal remainingOutstandingPrincipal;
 }

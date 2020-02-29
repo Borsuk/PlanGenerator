@@ -1,6 +1,7 @@
 package de.demo.plangenerator.repayment_schedule
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -20,6 +21,9 @@ class RepaymentScheduleControllerSpecification extends Specification {
 
     @Autowired
     private MockMvc mockMvc
+
+    @SpringBean
+    RepaymentScheduleService repaymentScheduleService
 
     @Autowired
     private ObjectMapper objectMapper

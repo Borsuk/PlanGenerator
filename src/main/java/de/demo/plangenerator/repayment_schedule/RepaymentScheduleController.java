@@ -5,10 +5,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.math.BigDecimal;
@@ -28,9 +26,11 @@ public class RepaymentScheduleController {
 
     @ApiOperation(value = "Generates new Repayment Schedule, returns list of installments with financial details", notes= "TODO") // TODO doc
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "TODO", response = Object.class) // TODO message & response doc
-            })
-    @RequestMapping(value = "/generate-plan", method = RequestMethod.POST)
+            @ApiResponse(code = 201, message = "Lit of scheduled installments", response = InstallmentPlan.class, responseContainer = "List"),
+            @ApiResponse(code = 400, message = "Bad request, violations are reported with ServerWebInputException structure (Spring Web)")
+    })
+    @PostMapping(value = "/generate-plan")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<InstallmentPlan> generatePlan(@RequestBody @Valid final GeneratePlanRequest request) {
         log.info("[Start] Generate repayment schedule. Accepted request: {}", request);
 

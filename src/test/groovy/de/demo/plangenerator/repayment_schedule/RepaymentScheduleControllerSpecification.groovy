@@ -23,7 +23,7 @@ class RepaymentScheduleControllerSpecification extends Specification {
     private MockMvc mockMvc
 
     @SpringBean
-    RepaymentScheduleService repaymentScheduleService
+    RepaymentScheduleService repaymentScheduleService = Mock()
 
     @Autowired
     private ObjectMapper objectMapper

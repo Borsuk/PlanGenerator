@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 @Validated
-@ApiModel(description = "Request to fetch (already generated) article scores")
+@ApiModel(description = "Request to generate repayment plan")
 @ToString
 public class GeneratePlanRequest {
 

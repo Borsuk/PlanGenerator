@@ -21,13 +21,13 @@ public class GeneratePlanRequest {
     @Positive
     public BigDecimal loanAmount;
 
-    @ApiModelProperty(value = "Annual rate of the load - percentage as an integer")
+    @ApiModelProperty(value = "Annual rate of the loan - percentage as an integer")
     @NotNull
     @PositiveOrZero
     @DecimalMax(value = "100")
     public BigDecimal nominalRate;
 
-    @ApiModelProperty(value = "Duration of the load in months")
+    @ApiModelProperty(value = "Duration of the loan in months")
     @NotNull
     @Min(1)
     public Integer duration;

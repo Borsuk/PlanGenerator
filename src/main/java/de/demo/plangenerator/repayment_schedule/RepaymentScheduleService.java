@@ -42,8 +42,7 @@ public class RepaymentScheduleService {
             BigDecimal borrowerPaymentAmount = FinCalc.borrowerPaymentAmount(principal, interest);
             remainingOutstandingPrincipal = initialOutstandingPrincipal.subtract(principal);
 
-            //TODO prepare info on installment -- add it to the list
-            ZonedDateTime date = startDate.plus(Duration.ofDays(30 * installmentNo));
+            ZonedDateTime date = startDate.plus(Duration.ofDays(daysInMonth * installmentNo));
             InstallmentPlan currentInstallment = new InstallmentPlan(date, borrowerPaymentAmount, principal, interest, initialOutstandingPrincipal, remainingOutstandingPrincipal);
 
             log.debug("Repayment installment was calculated for period #{} (0-based), borrower payment amount is {} ", installmentNo, borrowerPaymentAmount);

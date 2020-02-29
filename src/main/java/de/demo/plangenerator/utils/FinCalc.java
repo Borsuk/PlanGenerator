@@ -61,6 +61,16 @@ public class FinCalc {
      */
     public static BigDecimal monthlyPrincipal(BigDecimal currentAnnuity, BigDecimal monthlyInterest, BigDecimal initialOutstandingPrincipal) {
         BigDecimal monthlyPrincipal = currentAnnuity.subtract(monthlyInterest);
-        return (monthlyPrincipal.compareTo(BigDecimal.ZERO) < 0) ? initialOutstandingPrincipal : monthlyPrincipal;
+        return (monthlyPrincipal.compareTo(initialOutstandingPrincipal) > 0) ? initialOutstandingPrincipal : monthlyPrincipal;
+    }
+
+    /**
+     * Current monthly borrower's payment amount - aka annuity
+     * @param monthlyPrincipal
+     * @param monthlyInterest
+     * @return
+     */
+    public static BigDecimal borrowerPaymentAmount(BigDecimal monthlyPrincipal, BigDecimal monthlyInterest) {
+        return monthlyPrincipal.add(monthlyInterest);
     }
 }

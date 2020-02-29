@@ -2,6 +2,7 @@ package de.demo.plangenerator.repayment_schedule;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.ToString;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.*;
@@ -10,6 +11,7 @@ import java.time.ZonedDateTime;
 
 @Validated
 @ApiModel(description = "Request to fetch (already generated) article scores")
+@ToString
 public class GeneratePlanRequest {
 
     // TODO add customer validator that will compare loanAmount and nominalRare against externalized config settings

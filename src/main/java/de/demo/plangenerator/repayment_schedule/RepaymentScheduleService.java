@@ -1,6 +1,7 @@
 package de.demo.plangenerator.repayment_schedule;
 
 import de.demo.plangenerator.utils.FinCalc;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class RepaymentScheduleService {
 
     @Value("${repayment_schedule.days_in_month:30}")
@@ -24,6 +26,8 @@ public class RepaymentScheduleService {
             BigDecimal annualNominalRate,
             Integer duration,
             ZonedDateTime startDate) {
+
+        log.info("[Start] Calculate repayment schedule. loanAmount: {}, annualNominalRate: {}, duration: {}, startDate: {}", loanAmount, annualNominalRate, duration, startDate);
 
         List<InstallmentPlan> installments = new ArrayList<>(duration);
 
@@ -42,9 +46,12 @@ public class RepaymentScheduleService {
             ZonedDateTime date = startDate.plus(Duration.ofDays(30 * installmentNo));
             InstallmentPlan currentInstallment = new InstallmentPlan(date, borrowerPaymentAmount, principal, interest, initialOutstandingPrincipal, remainingOutstandingPrincipal);
 
+            log.debug("Repayment installment was calculated for period #{} (0-based), borrower payment amount is {} ", installmentNo, borrowerPaymentAmount);
+
             installments.add(currentInstallment);
         }
 
+        log.info("[Finish] Calculate repayment schedule. loanAmount: {}, annualNominalRate: {}, duration: {}, startDate: {}", loanAmount, annualNominalRate, duration, startDate);
         return installments;
     }
 

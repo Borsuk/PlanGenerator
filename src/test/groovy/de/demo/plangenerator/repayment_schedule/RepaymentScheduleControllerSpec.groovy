@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @WebMvcTest
-class RepaymentScheduleControllerSpecification extends Specification {
+class RepaymentScheduleControllerSpec extends Specification {
 
     @Autowired
     private MockMvc mockMvc

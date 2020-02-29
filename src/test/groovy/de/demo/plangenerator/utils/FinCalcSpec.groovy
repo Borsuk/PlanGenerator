@@ -3,7 +3,7 @@ package de.demo.plangenerator.utils
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class FinCalcSpecification extends Specification {
+class FinCalcSpec extends Specification {
 
     @Unroll
     def 'annuity calculation is correct for known sample data'() {

@@ -12,8 +12,8 @@ import spock.lang.Unroll
 
 import java.time.ZonedDateTime
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @AutoConfigureMockMvc
 @WebMvcTest
@@ -124,6 +124,26 @@ class RepaymentScheduleControllerSpec extends Specification {
                             .content(requestWithoutLoanAmount)
             )
                     .andExpect(status().isBadRequest())
+    }
+
+    def 'request to generate Repayment Schedule is correct'() {
+        given: 'valid request object'
+            GeneratePlanRequest request = new GeneratePlanRequest(
+                    BigDecimal.valueOf(5000),
+                    BigDecimal.ONE,
+                    24,
+                    ZonedDateTime.now()
+            )
+        and: 'its text representation'
+            String validRequest = objectMapper.writeValueAsString(request)
+
+        expect:
+            mockMvc.perform(
+                    post('/generate-plan')
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(validRequest)
+            )
+                    .andExpect(status().isCreated())
     }
 
 }

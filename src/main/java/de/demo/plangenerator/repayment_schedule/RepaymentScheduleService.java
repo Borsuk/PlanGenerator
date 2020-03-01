@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class RepaymentScheduleService {
             BigDecimal borrowerPaymentAmount = FinCalc.borrowerPaymentAmount(principal, interest);
             remainingOutstandingPrincipal = initialOutstandingPrincipal.subtract(principal);
 
-            ZonedDateTime date = startDate.plus(Duration.ofDays(daysInMonth * installmentNo));
+            ZonedDateTime date = startDate.plus(Duration.ofDays(daysInMonth * installmentNo)).truncatedTo(ChronoUnit.DAYS);
             InstallmentPlan currentInstallment = new InstallmentPlan(date, borrowerPaymentAmount, principal, interest, initialOutstandingPrincipal, remainingOutstandingPrincipal);
 
             log.debug("Repayment installment was calculated for period #{} (0-based), borrower payment amount is {} ", installmentNo, borrowerPaymentAmount);

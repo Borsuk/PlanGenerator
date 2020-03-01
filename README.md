@@ -44,6 +44,8 @@ See application.yml:
 ```
 These settings can be used to change values of the constants used for computations.  
 
+Overview of the settings is provided with `spring-boot-configuration-processor` - IDEs compatible with its metadata format are able to autocomplete names of configuration keys and offer hints on possible values.
+
 Settings can be externalized with the [standard Spring mechanisms](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config).
 
 ### API documentation

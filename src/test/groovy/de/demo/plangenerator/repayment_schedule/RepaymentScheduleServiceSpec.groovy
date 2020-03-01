@@ -48,4 +48,23 @@ class RepaymentScheduleServiceSpec extends Specification {
             thrown IllegalArgumentException
     }
 
+    def 'calculations are correct for known reference values'() {
+        given:
+            BigDecimal loanAmount = BigDecimal.valueOf(5000)
+            BigDecimal annualNominalRate = BigDecimal.valueOf(0.05)
+            Integer duration = 24
+            ZonedDateTime startDate = ZonedDateTime.now()
+
+        when:
+            def result = repaymentScheduleService.calculateRepaymentSchedule(loanAmount, annualNominalRate, duration, startDate)
+
+        then: 'result has proper size'
+            result.size() == duration
+        and: 'the first value for initial outstanding principal is the same as loan amount'
+            result[0].initialOutstandingPrincipal == loanAmount
+        and: 'the last value of remaining outstanding principal is zero'
+            result[duration-1].remainingOutstandingPrincipal == BigDecimal.ZERO
+
+    }
+
 }

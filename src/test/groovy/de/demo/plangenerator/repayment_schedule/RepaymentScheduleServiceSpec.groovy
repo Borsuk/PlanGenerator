@@ -85,6 +85,7 @@ class RepaymentScheduleServiceSpec extends Specification {
             BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.03)      | 24
             BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.12)      | 24
             BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.24)      | 24
+//            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.7)       | 24      // ooopsie
             BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.8)       | 24
 
             BigDecimal.valueOf(50_000)  | BigDecimal.valueOf(0.05)      | 24

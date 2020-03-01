@@ -64,6 +64,31 @@ class RepaymentScheduleServiceSpec extends Specification {
             result[0].initialOutstandingPrincipal == loanAmount
         and: 'the last value of remaining outstanding principal is zero'
             result[duration-1].remainingOutstandingPrincipal == BigDecimal.ZERO
+    }
+
+    @Unroll
+    def 'the last installment shows ZERO in remaining outstanding principal'() {
+        given:
+            ZonedDateTime startDate = ZonedDateTime.now()
+        when:
+            def result = repaymentScheduleService.calculateRepaymentSchedule(loanAmount, annualNominalRate, duration, startDate)
+
+        then: 'remaining outstanding principal is zero'
+            result[duration-1].remainingOutstandingPrincipal == BigDecimal.ZERO
+
+        where:
+            loanAmount                  | annualNominalRate             | duration
+            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.05)      | 24
+            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.05)      | 12
+            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.05)      | 1
+
+            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.03)      | 24
+            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.12)      | 24
+            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.24)      | 24
+            BigDecimal.valueOf(5000)    | BigDecimal.valueOf(0.8)       | 24
+
+            BigDecimal.valueOf(50_000)  | BigDecimal.valueOf(0.05)      | 24
+            BigDecimal.valueOf(100_000) | BigDecimal.valueOf(0.05)      | 24
 
     }
 

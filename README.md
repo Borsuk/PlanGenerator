@@ -1,65 +1,86 @@
 # Getting Started
 
+### Quickstart Guide
+Run the application with Maven:
+    
+    $ mvn spring-boot:run
+    
+Run Jar-packaged application:
+    
+    $ mvn clean package
+    $ java -jar target/PlanGenerator-0.0.1-SNAPSHOT.jar
+    
+Run application with Docker:
+
+    $ docker build --file=Dockerfile --tag=plan-generator:latest --rm=true .
+    $ docker run --name=plan-generator --publish=8080:8080 --rm  plan-generator:latest
+
+### API documentation
+Documentation for the API is provided by Swagger2 and is visualised by Springfox Swagger-UI.  
+Please run the application and navigate to http://localhost:8080/swagger-ui.html
+    
 ### Project structure
-I am used to project organization that separates components in functional layers.
-For MVC app it would be a separate package for:
+I am used to project organization that separates components according to functional layers.
+For the MVC app it would be a separate package for:
 * controllers
 * services
 * model (aka. domain, persistence)
 
 For this project i decided to steer away from this convention and group the components based on a purpose.
-That can be understood as a single aggregate in the identified domain.
+In other words it is one package per aggregate (DDD) or per feature.
 
 Example:
     
     my.package.feature_x
       FeatureXController
       FeatureXService
-      ModelX
+      ModelX_1
+      ModelX_2
     my.package.feature_y
       FeatureYController
       FeatureYService
       ModelY
 
-Since this project has simple responsibility and simple domain, all the components will inevitably end up in a same package.
-I don't see it as a problem, it can be an advantage. 
-
-In the simple project the difference in the project layout is not that apparent.
+In the simple application the difference in the project layout is not that apparent.  
+Since this project has narrow responsibility and singular focused domain, all the components will inevitably end up in a same package.  
+I don't see it as a problem, it can be an advantage.  
 
 I believe that more complex applications would benefit from this style of organization:
-* it's possible to simplify naming of classes because implementation of a feature exists in a dedicated package that acts as a namespace.
-* it's easier to analyze the app by new developer - components related to the same feature are grouped together
-* it promotes single responsibility, decreases proliferation of GOD-class components that manage multiple abstractions across the layer
-* it's potentially easier to notice that app has too many responsibility - in such case it's easier to carve out a package as a new standalone application 
-
+* it's possible to simplify naming of classes because feature-dedicated package acts as a namespace
+* it's easier to analyze the app by new developers - components related to the same feature are grouped together
+* it promotes single responsibility by decreased proliferation of GOD-class components that manage multiple abstractions across the layer
+* it's easier to notice that app has too many responsibilities - in such case it's easier to carve out a package to be a new standalone application 
 
 ### Technology choice - Rationale
 
 #### Spring Boot
-One of the best things that has happened to JVM enterprise software development in recent years.
+One of the best things that has happened to JVM enterprise software in recent years.
 
 #### Build system
-Maven was requested.
+Maven was requested.  
 Otherwise I would prefer Gradle for a number of reasons.
 
 #### Swagger and Swagger-UI
-Provides pleasant and powerful way to document APIs and lowers the effort to test them in development phase. 
+Provides pleasant and powerful way to document APIs.  
+Enables low effort manual tests in development phase. 
 
 #### Lombok
 Usually I am not that fond of code-generation tools.
 I favour explicit over implicit.
 Lombok is the most controversial thing that I've decided to use.
 
-While I am reluctant to some of its features I appreciate it for syntactic sugar for hiding boiler plate.
-Abstracting Logger and making it more declarative is also a good thing from visual point of view.
+While I am reluctant to some of its features I appreciate it for syntactic sugar for hiding boiler plate code.
+Abstracting the Logger and making it more declarative is also a good thing.
 
-In short - I use Lombok to compensate for the missing features that I like in languages like Groovy or Kotlin. 
+In short - I use Lombok to compensate for the Java missing features that I like in languages like Groovy or Kotlin. 
 
 #### Testing framework
-I have used Spock for tests.
+I have used Spock for tests.  
+
 Nothing is wrong with JUnit or TestNG, but I believe that Spock is superior in every aspect that matters in Tests:
 
 Readability:
+------------
 * Groovy is more expressive than any other JVM language while being 90% Java syntax compatible (gentle learning curve).
 * Test method names can have spaces and be proper sentences - that is just awesome and helps to show the intent of the test.
 * Very compact and meaningful fixtures - short test is a test that other developers will be keen to read and learn from.
@@ -67,15 +88,23 @@ Readability:
 * Clean and visual separation of: fixture setup, test action and assertions.
 
 Test doubles:
+-------------
 * Mocking & Stubbing is as powerful as in the best specialized libraries.
 * Built-in Stubs and Mocks are lenient out-of-the box. That helps a Mock to be **proper** drop-in replacement for complex dependency.
-* Matching and capturing of parameters in method calls is trivial.
+
+Test as documentation:
+----------------------
+* All elements of test are very human-readable
+* It's easy to write a test that has a nice name and tels the story
+* Test is more compact - it's easier to comprehend
 
 Data driven tests:
+------------------
 * Other testing frameworks are doing it wrong. Period.
 * See: http://spockframework.org/spock/docs/1.3/data_driven_testing.html
 
 Superior report of test result:
+-------------------------------
 * See this error report and try not to love it:
 
     Condition not satisfied:
@@ -83,8 +112,27 @@ Superior report of test result:
     stack.size() == 2
           |      |
           1      false
-    
+ 
 
+### Message to the reviewer
+Below are additional explanations and clarification on controversies.
+
+#### Tests
+It's not mistake that my assertions use `==` operator.
+Spock tests use Groovy language, and `==` operator in Groovy has that same meaning as `Object.equals()` in Java.  
+JUnit test would require `assertEquals` construct for the same effect.
+ 
+#### Getter and Setters
+I avoid Getters and Setters.  
+In my opinion they not only obfuscate the class by making it unnaturally long but also are a "fake insurance policy".  
+In **most** of the cases a `private` field with accessor and mutator is effectively no different than `public` field, so there is no benefit in using them.  
+Responsible use of Getters and Setters requires use of sophisticated techniques like defensive copying, which are not always possible and might be expensive.    
+I am in favor of using immutable classes instead.  
+
+#### Validation
+I decided to have validation at the level of controller only.  
+In my opinion it's sufficient for this application.
+My understanding is that it's a kind of microservice and validation of request prevents all illegal combinations of values in the deeper layers.
 
 ### Reference Documentation
 For further reference, please consider the following sections:

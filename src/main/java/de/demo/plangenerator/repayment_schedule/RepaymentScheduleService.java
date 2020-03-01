@@ -34,10 +34,10 @@ public class RepaymentScheduleService {
      * @return list of monthly installments with all financial details
      */
     public List<InstallmentPlan> calculateRepaymentSchedule(
-            BigDecimal loanAmount,
-            BigDecimal annualNominalRate,
-            Integer duration,
-            ZonedDateTime startDate) {
+            final BigDecimal loanAmount,
+            final BigDecimal annualNominalRate,
+            final Integer duration,
+            final ZonedDateTime startDate) {
 
         log.info("[Start] Calculate repayment schedule. loanAmount: {}, annualNominalRate: {}, duration: {}, startDate: {}", loanAmount, annualNominalRate, duration, startDate);
 

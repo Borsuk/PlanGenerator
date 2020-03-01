@@ -17,7 +17,10 @@ public class FinCalc {
      * @param numberOfPeriods number of periods left
      * @return annuity computed for given inputs
      */
-    public static BigDecimal annuity(BigDecimal annualNominalRate, BigDecimal initialOutstandingPrincipal, int numberOfPeriods) {
+    public static BigDecimal annuity(
+            final BigDecimal annualNominalRate,
+            final BigDecimal initialOutstandingPrincipal,
+            int numberOfPeriods) {
         BigDecimal ratePerMonth = annualNominalRate.divide(BigDecimal.valueOf(12), MathContext.DECIMAL64); // scale=16 , Rounding=HALF_EVEN <- seems to be enough and correct
 
         BigDecimal numerator = ratePerMonth.multiply(initialOutstandingPrincipal);
@@ -39,7 +42,11 @@ public class FinCalc {
      * @param initialOutstandingPrincipal initial outstanding principal in current month
      * @return
      */
-    public static BigDecimal monthlyInterest(BigDecimal annualNominalRate, Integer daysInMonth, Integer daysInYear, BigDecimal initialOutstandingPrincipal) {
+    public static BigDecimal monthlyInterest(
+            final BigDecimal annualNominalRate,
+            final Integer daysInMonth,
+            final Integer daysInYear,
+            final BigDecimal initialOutstandingPrincipal) {
         BigDecimal numerator = annualNominalRate.multiply(BigDecimal.valueOf(daysInMonth)).multiply(initialOutstandingPrincipal);
         BigDecimal denominator = BigDecimal.valueOf(daysInYear);
 
@@ -59,7 +66,10 @@ public class FinCalc {
      * @param initialOutstandingPrincipal initial outstanding principal - is used as a fallback result if calculation gives negative result
      * @return
      */
-    public static BigDecimal monthlyPrincipal(BigDecimal currentAnnuity, BigDecimal monthlyInterest, BigDecimal initialOutstandingPrincipal) {
+    public static BigDecimal monthlyPrincipal(
+            final BigDecimal currentAnnuity,
+            final BigDecimal monthlyInterest,
+            final BigDecimal initialOutstandingPrincipal) {
         BigDecimal monthlyPrincipal = currentAnnuity.subtract(monthlyInterest);
         return (monthlyPrincipal.compareTo(initialOutstandingPrincipal) > 0) ? initialOutstandingPrincipal : monthlyPrincipal;
     }
@@ -70,7 +80,9 @@ public class FinCalc {
      * @param monthlyInterest
      * @return
      */
-    public static BigDecimal borrowerPaymentAmount(BigDecimal monthlyPrincipal, BigDecimal monthlyInterest) {
+    public static BigDecimal borrowerPaymentAmount(
+            final BigDecimal monthlyPrincipal,
+            final BigDecimal monthlyInterest) {
         return monthlyPrincipal.add(monthlyInterest);
     }
 }

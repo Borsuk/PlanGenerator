@@ -15,6 +15,17 @@ Run application with Docker:
     $ docker build --file=Dockerfile --tag=plan-generator:latest --rm=true .
     $ docker run --name=plan-generator --publish=8080:8080 --rm  plan-generator:latest
 
+Call the endpoint to generate repayment plan (cURL):
+
+    $ curl --location --request POST 'localhost:8080/generate-plan' \
+      --header 'Content-Type: application/json' \
+      --data-raw '{
+        "duration": 24,
+        "loanAmount": 5000,
+        "nominalRate": 5,
+        "startDate": "2020-02-28T22:09:08.697Z"
+      }'
+
 ### API documentation
 Documentation for the API is provided by Swagger2 and is visualised by Springfox Swagger-UI.  
 Please run the application and navigate to http://localhost:8080/swagger-ui.html

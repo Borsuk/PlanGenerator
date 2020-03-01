@@ -11,6 +11,9 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Orchestration of Repayment Schedule calculations.
+ */
 @Service
 @Slf4j
 public class RepaymentScheduleService {
@@ -21,6 +24,15 @@ public class RepaymentScheduleService {
     @Value("${repayment_schedule.days_in_year:360}")
     Integer daysInYear;
 
+    /**
+     * Calculate monthly schedule of repayment.
+     *
+     * @param loanAmount loan amount (principal amount)
+     * @param annualNominalRate annual interest rate of the loan, percentage expressed as fraction
+     * @param duration number of installments in months
+     * @param startDate date of Disbursement/Payout (due date of first installment)
+     * @return list of monthly installments with all financial details
+     */
     public List<InstallmentPlan> calculateRepaymentSchedule(
             BigDecimal loanAmount,
             BigDecimal annualNominalRate,

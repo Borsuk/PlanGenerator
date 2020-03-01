@@ -23,14 +23,12 @@ public class GeneratePlanRequest {
         this.duration = duration;
         this.startDate = startDate;
     }
-    // TODO add customer validator that will compare loanAmount and nominalRare against externalized config settings
-
-    @ApiModelProperty(value = "Total amount of the loan")
+    @ApiModelProperty(value = "Total amount of the loan (principal amount)")
     @NotNull
     @Positive
     public final BigDecimal loanAmount;
 
-    @ApiModelProperty(value = "Annual rate of the loan - percentage as an integer")
+    @ApiModelProperty(value = "Annual interest rate of the loan - percentage as an integer")
     @NotNull
     @PositiveOrZero
     @DecimalMax(value = "100")
@@ -41,7 +39,7 @@ public class GeneratePlanRequest {
     @Min(1)
     public final Integer duration;
 
-    @ApiModelProperty(value = "Start date of the loan - ISO8601 with timezone")
+    @ApiModelProperty(value = "Date of Disbursement/Payout - ISO8601 with timezone")
     @NotNull
     public final ZonedDateTime startDate;
 }

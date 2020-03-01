@@ -1,6 +1,10 @@
 # Getting Started
 
 ### Quickstart Guide
+Build the application:
+
+    $ mvn clean install
+
 Run the application with Maven:
     
     $ mvn spring-boot:run
@@ -44,7 +48,7 @@ See application.yml:
 ```
 These settings can be used to change values of the constants used for computations.  
 
-Overview of the settings is provided with `spring-boot-configuration-processor` - IDEs compatible with its metadata format are able to autocomplete names of configuration keys and offer hints on possible values.
+[Overview of the settings](src/main/resources/META-INF/spring-configuration-metadata.json) is provided with `spring-boot-configuration-processor` - IDEs compatible with its metadata format are able to autocomplete names of configuration keys and offer hints on possible values.
 
 Settings can be externalized with the [standard Spring mechanisms](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config).
 
@@ -53,7 +57,7 @@ Documentation for the API is provided by Swagger2 and is visualised by Springfox
 Please run the application and navigate to [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 ### Logging
-Framework : Slf4J facade with the default Logback implementation.
+Framework : [Slf4J](http://www.slf4j.org/) facade with the default Logback implementation.
 Lombok syntactic sugar was used to make it more declarative. 
 
 Log messages are correlated by UUID value generated with each API call. Thanks to this mechanism, the logs are bound and can be analysed from the perspective of client call.
@@ -225,6 +229,7 @@ For further reference, please consider the following sections:
 * [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
 * [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/2.2.5.RELEASE/reference/htmlsingle/#production-ready)
 * [Spock Framework](http://spockframework.org/spock/docs/1.3/)
+* [Slf4J](http://www.slf4j.org/)
 
 ### Guides
 The following guides illustrate how to use some features concretely:

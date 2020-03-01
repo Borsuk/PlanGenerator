@@ -2,11 +2,16 @@ package de.demo.plangenerator.repayment_schedule;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+/**
+ * Calculated monthly installment of the repayment.
+ */
 @ApiModel(description = "Calculated monthly installment of the repayment")
+@ToString
 public class InstallmentPlan {
 
     public InstallmentPlan(

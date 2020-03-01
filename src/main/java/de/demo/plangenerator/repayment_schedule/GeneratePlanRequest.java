@@ -9,6 +9,9 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
+/**
+ * Request to generate repayment plan.
+ */
 @Validated
 @ApiModel(description = "Request to generate repayment plan")
 @ToString

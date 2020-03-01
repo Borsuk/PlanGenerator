@@ -27,7 +27,7 @@ public class RepaymentScheduleController {
 
     private RepaymentScheduleService repaymentScheduleService;
 
-    @ApiOperation(value = "Generates new Repayment Schedule, returns list of installments with financial details", notes= "TODO") // TODO doc
+    @ApiOperation(value = "Generate new Repayment Schedule", notes= "Returns a list of monthly installments with all financial details.")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Lit of scheduled installments", response = InstallmentPlan.class, responseContainer = "List"),
             @ApiResponse(code = 400, message = "Bad request, violations are reported with ServerWebInputException structure (Spring Web)")

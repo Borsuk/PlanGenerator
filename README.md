@@ -26,6 +26,16 @@ Call the endpoint to generate repayment plan (cURL):
         "startDate": "2020-02-28T22:09:08.697Z"
       }'
 
+Run Tests:
+
+    $ mvn clean test      
+
+Measure Tests coverage:
+
+    $ mvn jacoco:report
+    $ x-www-browser target/site/jacoco/index.html
+
+
 ### API documentation
 Documentation for the API is provided by Swagger2 and is visualised by Springfox Swagger-UI.  
 Please run the application and navigate to [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
@@ -133,9 +143,41 @@ Superior report of test result:
 ### Message to the reviewer
 Below are additional explanations and clarification on controversies.
 
+#### Date format, time is truncated
+In the examples, all dates in the response have the time part truncated to 00:00:00 - even when the request had non-midnight time in the startDate.  
+Based on this observation I have assumed that rounding the date to zero-time is expected. 
+
+#### Illegal JSON in instructions
+In the example from the instructions, the response body has illegal JSON format:
+```
+    {
+        [                <-- HERE, an unlabeld array
+            {
+                "borrowerPaymentAmount": ...
+                ...    
+            },
+            {...},
+            ...
+            {...}
+        ]
+    }
+```
+I have assumed that it's a mistake, and decided to continue with simpler format that has an array as a root of the JSON document:
+```
+    [                <-- ROOT
+        {
+            "borrowerPaymentAmount": ...
+            ...    
+        },
+        {...},
+        ...
+        {...}
+    ]
+```
+
 #### Tests
 It's not mistake that my assertions use `==` operator.
-Spock tests use Groovy language, and `==` operator in Groovy has the same meaning as `Object.equals()` in Java.  
+Spock tests use the Groovy language, and `==` operator in Groovy has the same meaning as `Object.equals()` in Java.  
 JUnit test would require `assertEquals` construct for the same effect.
  
 #### Getters and Setters

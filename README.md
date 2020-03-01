@@ -51,6 +51,18 @@ Settings can be externalized with the [standard Spring mechanisms](https://docs.
 ### API documentation
 Documentation for the API is provided by Swagger2 and is visualised by Springfox Swagger-UI.  
 Please run the application and navigate to [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+
+### Logging
+Framework : Slf4J facade with the default Logback implementation.
+Lombok syntactic sugar was used to make it more declarative. 
+
+Log messages are correlated by UUID value generated with each API call. Thanks to this mechanism, the logs are bound and can be analysed from the perspective of client call.
+
+It's a simplified take on logs correlation, in the production-grade appender the correlation identifier would be in log metadata rather than message content.  
+Logstash format would be suitable for such approach.
+
+Production-grade appender could also benefit from [Spring-aware Logback configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-configure-logback-for-logging).
+It's a nice way to differentiate logging format for different Spring Profiles. That wasn't needed here.
     
 ### Project structure
 I am used to project organization that separates components according to functional layers.

@@ -34,7 +34,17 @@ Measure Tests coverage:
 
     $ mvn jacoco:report
     $ x-www-browser target/site/jacoco/index.html
+    
+### Configuration
+See application.yml:
+```
+    repayment_schedule:
+      days_in_month: 30
+      days_in_year: 360
+```
+These settings can be used to change values of the constants used for computations.  
 
+Settings can be externalized with the [standard Spring mechanisms](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-external-config).
 
 ### API documentation
 Documentation for the API is provided by Swagger2 and is visualised by Springfox Swagger-UI.  

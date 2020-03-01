@@ -7,4 +7,4 @@ logging:
     org.springframework: ERROR
     de.demo.plangenerator: INFO
   pattern:
-    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %X{correlationID} -  %msg%n"
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - Correlation:%X{correlationID} - %msg%n"

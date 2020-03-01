@@ -34,7 +34,7 @@ class FinCalcSpec extends Specification {
     @Unroll
     def 'monthly principal value is correct for known sample data'() {
         expect:
-            FinCalc.monthlyPrincipal(currentAnnuity, monthlyInterest, initialOutstandingPrincipal) == expectedMonthlyPrincipal;
+            FinCalc.monthlyPrincipal(currentAnnuity, monthlyInterest, initialOutstandingPrincipal) == expectedMonthlyPrincipal
         where:
             currentAnnuity              | monthlyInterest               | initialOutstandingPrincipal   || expectedMonthlyPrincipal
             BigDecimal.valueOf(219.36)  | BigDecimal.valueOf(20.83)     | BigDecimal.valueOf(5000.0)    || BigDecimal.valueOf(198.53)
@@ -45,7 +45,7 @@ class FinCalcSpec extends Specification {
     @Unroll
     def 'monthly principal value cant exceed initial outstanding principal, it assumes value of initial outstanding principal in such case'() {
         expect:
-            FinCalc.monthlyPrincipal(currentAnnuity, monthlyInterest, initialOutstandingPrincipal) == expectedMonthlyPrincipal;
+            FinCalc.monthlyPrincipal(currentAnnuity, monthlyInterest, initialOutstandingPrincipal) == expectedMonthlyPrincipal
         where:
             currentAnnuity              | monthlyInterest               | initialOutstandingPrincipal   || expectedMonthlyPrincipal
             BigDecimal.valueOf(100.0)   | BigDecimal.valueOf(70.0)      | BigDecimal.valueOf(20.0)      || BigDecimal.valueOf(20.0)

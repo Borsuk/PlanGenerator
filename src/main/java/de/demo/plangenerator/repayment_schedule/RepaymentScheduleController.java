@@ -25,7 +25,7 @@ public class RepaymentScheduleController {
         this.repaymentScheduleService = repaymentScheduleService;
     }
 
-    private RepaymentScheduleService repaymentScheduleService;
+    private final RepaymentScheduleService repaymentScheduleService;
 
     @ApiOperation(value = "Generate new Repayment Schedule", notes= "Returns a list of monthly installments with all financial details.")
     @ApiResponses(value = {

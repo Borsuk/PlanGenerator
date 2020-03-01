@@ -13,6 +13,9 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.List;
 
+/**
+ * API for Repayment Schedule.
+ */
 @RestController
 @Slf4j
 public class RepaymentScheduleController {

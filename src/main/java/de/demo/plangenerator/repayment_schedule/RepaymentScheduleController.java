@@ -37,7 +37,9 @@ public class RepaymentScheduleController {
     public List<InstallmentPlan> generatePlan(@RequestBody @Valid final GeneratePlanRequest request) {
         log.info("[Start] Generate repayment schedule. Accepted request: {}", request);
 
+        // adapt numeric formats
         BigDecimal nominalRateAsFraction = request.nominalRate.divide(BigDecimal.valueOf(100), MathContext.DECIMAL64);
+
         List<InstallmentPlan> repaymentInstallments = repaymentScheduleService.calculateRepaymentSchedule(request.loanAmount, nominalRateAsFraction, request.duration, request.startDate);
 
         log.info("[Finish] Generate repayment schedule. Processed request: {}", request);

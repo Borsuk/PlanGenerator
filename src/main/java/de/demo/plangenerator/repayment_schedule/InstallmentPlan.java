@@ -9,11 +9,13 @@ import java.time.ZonedDateTime;
 @ApiModel(description = "Calculated monthly installment of the repayment")
 public class InstallmentPlan {
 
-    public InstallmentPlan() {
-        super();
-    }
-
-    public InstallmentPlan(ZonedDateTime date, BigDecimal borrowerPaymentAmount, BigDecimal principal, BigDecimal interest, BigDecimal initialOutstandingPrincipal, BigDecimal remainingOutstandingPrincipal) {
+    public InstallmentPlan(
+            final ZonedDateTime date,
+            final BigDecimal borrowerPaymentAmount,
+            final BigDecimal principal,
+            final BigDecimal interest,
+            final BigDecimal initialOutstandingPrincipal,
+            final BigDecimal remainingOutstandingPrincipal) {
         this.date = date;
         this.borrowerPaymentAmount = borrowerPaymentAmount;
         this.principal = principal;
@@ -23,20 +25,20 @@ public class InstallmentPlan {
     }
 
     @ApiModelProperty(value = "Monthly installment to pay")
-    public BigDecimal borrowerPaymentAmount;
+    public final BigDecimal borrowerPaymentAmount;
 
     @ApiModelProperty(value = "Due date of installment")
-    public ZonedDateTime date;
+    public final ZonedDateTime date;
 
     @ApiModelProperty(value = "Initial outstanding principal")
-    public BigDecimal initialOutstandingPrincipal;
+    public final BigDecimal initialOutstandingPrincipal;
 
     @ApiModelProperty(value = "Monthly interest value")
-    public BigDecimal interest;
+    public final BigDecimal interest;
 
     @ApiModelProperty(value = "Monthly principal value")
-    public BigDecimal principal;
+    public final BigDecimal principal;
 
     @ApiModelProperty(value = "Remaining outstanding principal")
-    public BigDecimal remainingOutstandingPrincipal;
+    public final BigDecimal remainingOutstandingPrincipal;
 }

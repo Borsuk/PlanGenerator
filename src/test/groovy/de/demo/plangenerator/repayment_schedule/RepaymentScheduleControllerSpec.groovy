@@ -32,10 +32,10 @@ class RepaymentScheduleControllerSpec extends Specification {
     def 'request to generate Repayment Schedule fails with invalid loanAmount - #reasonToFail'(){
         given: 'invalid request object without loanAmount'
             GeneratePlanRequest request = new GeneratePlanRequest(
-                    loanAmount : loanAmount,
-                    nominalRate: BigDecimal.ONE,
-                    duration: 24,
-                    startDate: ZonedDateTime.now()
+                    loanAmount,
+                    BigDecimal.ONE,
+                    24,
+                    ZonedDateTime.now()
             )
         and: 'its text representation'
             String requestWithoutLoanAmount = objectMapper.writeValueAsString(request)
@@ -58,10 +58,10 @@ class RepaymentScheduleControllerSpec extends Specification {
     def 'request to generate Repayment Schedule fails with invalid nominalRate - #reasonToFail'(){
         given: 'invalid request object without nominalRate'
             GeneratePlanRequest request = new GeneratePlanRequest(
-                    loanAmount : BigDecimal.valueOf(1000.0d),
-                    nominalRate: nominalRate,
-                    duration: 24,
-                    startDate: ZonedDateTime.now()
+                    BigDecimal.valueOf(1000.0d),
+                    nominalRate,
+                    24,
+                    ZonedDateTime.now()
             )
         and: 'its text representation'
             String requestWithoutLoanAmount = objectMapper.writeValueAsString(request)
@@ -84,10 +84,10 @@ class RepaymentScheduleControllerSpec extends Specification {
     def 'request to generate Repayment Schedule fails with invalid duration - #reasonToFail'(){
         given: 'invalid request object without duration'
             GeneratePlanRequest request = new GeneratePlanRequest(
-                    loanAmount : BigDecimal.valueOf(1000.0d),
-                    nominalRate: BigDecimal.ONE,
-                    duration: duration,
-                    startDate: ZonedDateTime.now()
+                    BigDecimal.valueOf(1000.0d),
+                    BigDecimal.ONE,
+                    duration,
+                    ZonedDateTime.now()
             )
         and: 'its text representation'
             String requestWithoutLoanAmount = objectMapper.writeValueAsString(request)
@@ -100,19 +100,19 @@ class RepaymentScheduleControllerSpec extends Specification {
             )
                     .andExpect(status().isBadRequest())
         where:
-            duration                        |   reasonToFail
-            null                            |   'is null'
-            BigDecimal.valueOf(-1.0d)       |   'is negative'
-            BigDecimal.ZERO                 |   'is zero duration'
+            duration    |   reasonToFail
+            null        |   'is null'
+            -1          |   'is negative'
+            0           |   'is zero duration'
     }
 
     def 'request to generate Repayment Schedule is invalid without startDate'(){
         given: 'invalid request object without startDate'
             GeneratePlanRequest request = new GeneratePlanRequest(
-                    loanAmount : BigDecimal.valueOf(1000.0d),
-                    nominalRate: BigDecimal.ONE,
-                    duration: 24,
-                    startDate: null
+                    BigDecimal.valueOf(1000.0d),
+                    BigDecimal.ONE,
+                    24,
+                    null
             )
         and: 'its text representation'
             String requestWithoutLoanAmount = objectMapper.writeValueAsString(request)

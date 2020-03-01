@@ -9,6 +9,10 @@ import java.math.RoundingMode;
  */
 public class FinCalc {
 
+    private FinCalc() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * Calculates annuity value.
      *
